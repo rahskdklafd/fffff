@@ -1,11 +1,12 @@
-
-import requests 
+```python
+import requests
 import json
 
-API_KEY = "gsk _bv6aoIWNeZ93DGFoyRZ6WGdyb3FYLhLERRX2Yb4X59IAGTjnRJCz" 
+API_KEY = "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"
 URL = "https://api.groq.com/openai/v1/chat/completions"
 
-SYSTEM_PROMPT = """ You are a Machine Learning and Data Analysis coding assistant.
+SYSTEM_PROMPT = """
+You are a Machine Learning and Data Analysis coding assistant.
 
 RESPONSE FORMAT RULES
 • Always return ONLY Python code.
@@ -72,33 +73,9 @@ PANDAS / DATA ANALYSIS (DVA Python)
 • Data merging
 • Data pivoting
 • Data aggregation
-
-EXAMPLE RULE
-
-If the user asks:
-"How to filter rows where age > 30?"
-
-Return code like this:
-
-import pandas as pd
-
-# Example dataset
-data = {
-    "Name": ["Alice","Bob","Charlie"],
-    "Age": [25,35,40]
-}
-
-df = pd.DataFrame(data)
-
-# Filter rows where age > 30
-filtered_df = df[df["Age"] > 30]
-
-print(filtered_df)
-
-Always include a small working example unless the user provides their own dataset. """
+"""
 
 def ask(question):
-
     payload = {
         "model": "openai/gpt-oss-120b",
         "messages": [
@@ -114,10 +91,13 @@ def ask(question):
     }
 
     response = requests.post(URL, headers=headers, data=json.dumps(payload))
-
     result = response.json()
 
     return result["choices"][0]["message"]["content"]
+```
+
+
+
 to ask any question use this function
 
 print(ask("explain full logistic regression"))
